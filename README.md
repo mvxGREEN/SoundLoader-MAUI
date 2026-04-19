@@ -14,38 +14,40 @@ URL-to-MP3 Soundcloud music downloader app for Android built with .NET MAUI fram
 
 ## ✨ Features
 * **Direct Downloads**: Easily download your favorite SoundCloud tracks directly to your Android device's local storage.
-* **Kotlin-First**: Written entirely (100%) in Kotlin, leveraging modern language features for a safe and concise codebase.
-* **Modern Build System**: Utilizes Gradle Kotlin DSL (`*.gradle.kts`) for build scripts, ensuring better type safety and seamless IDE support.
+* **Cross-Platform Ready Code**: Built using .NET MAUI, meaning the core logic and UI can easily be extended to other platforms like iOS or Windows in the future.
+* **C# Powered**: Written entirely in C#, utilizing the robust .NET ecosystem and standard modern coding practices.
+* **Intuitive UI**: A clean, responsive interface designed for Android devices using MAUI's XAML/C# structures.
 
 ## 🛠 Tech Stack
-* **Language**: [Kotlin](https://kotlinlang.org/)
-* **Platform**: Android SDK
-* **Build Tool**: Gradle (Kotlin DSL)
+* **Framework**: [.NET MAUI](https://learn.microsoft.com/en-us/dotnet/maui/) (Multi-platform App UI)
+* **Language**: C#
+* **Target Platform**: Android (via .NET MAUI)
+* **IDE**: Visual Studio / Visual Studio for Mac
 
 ## 🚀 Getting Started
 
 To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
-* **Android Studio**: Make sure you have the latest version of [Android Studio](https://developer.android.com/studio) installed.
-* **Android SDK**: API level 24 or higher is recommended (check the `build.gradle.kts` for specific `minSdk` and `targetSdk` configurations).
+* **Visual Studio 2022+* (version 17.3 or later) with the **.NET Multi-platform App UI development** workload installed.
+* **Android SDK**: Visual Studio generally installs this alongside the MAUI workload, but ensure you have an Android emulator set up or a physical device ready.
 
 ### Installation & Build
 
 1. **Clone the repository**
-    `git clone https://github.com/mvxGREEN/SoundLoader-Android.git`
+    `git clone https://github.com/mvxGREEN/SoundLoader-Android-Maui.git`
 
-2. **Open the project in Android Studio**
-   * Launch Android Studio.
-   * Select **Open an existing Android Studio project**.
-   * Navigate to the cloned `SoundLoader-Android` directory and click **OK**.
+2. **Open the project in Visual Studio**
+   * Launch Visual Studio 2022.
+   * Select **Open a project or solution**.
+   * Navigate to the cloned directory and select the `SoundLoaderMaui.sln` solution file.
 
-3. **Sync Gradle**
-   * Wait for Android Studio to index the files and sync the Gradle dependencies.
+3. **Restore Dependencies**
+   * Wait for NuGet to automatically restore the required packages. You can also right-click the solution in the Solution Explorer and click **Restore NuGet Packages**.
 
 4. **Run the App**
-   * Connect an Android device via USB (with USB Debugging enabled) or start an Android Emulator.
-   * Click the **Run** button (green play icon) in the Android Studio toolbar.
+   * In the top toolbar, ensure the build target is set to an Android Emulator or your connected local Android device.
+   * Click the **Play (Start Debugging)** button or press `F5` to build and deploy the app.
 
 ## 💡 Usage
 
@@ -55,7 +57,7 @@ To get a local copy up and running, follow these simple steps.
 
 ## 🤝 Contributing
 Contributions, issues, and feature requests are welcome! 
-Feel free to check the [issues page](https://github.com/mvxGREEN/SoundLoader-Android/issues) if you want to contribute. 
+Feel free to check the [issues page](https://github.com/mvxGREEN/SoundLoader-Android-Maui/issues) if you want to contribute. 
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
