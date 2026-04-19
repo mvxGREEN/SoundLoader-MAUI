@@ -7,7 +7,7 @@
 [![Framework: .NET](https://img.shields.io/badge/Framework-.NET-512BD4.svg)](https://dotnet.microsoft.com/)
 
 
-⚠️ **NOTE: This repo is superceded by [SoundLoader-Android](https://github.com/mvxGREEN/SoundLoader-Android)**
+⚠️ **This project is superceded by [SoundLoader-Android](https://github.com/mvxGREEN/SoundLoader-Android)**
 
 
 URL-to-MP3 Soundcloud music downloader app for Android built with .NET MAUI framework.  Supports links to songs, albums and playlists.
