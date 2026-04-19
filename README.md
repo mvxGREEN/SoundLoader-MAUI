@@ -1,4 +1,4 @@
-# SoundLoader-Android-Maui 🎵⬇️
+# SoundLoader-MAUI 🎵⬇️
 
 [![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
 [![Language: C#](https://img.shields.io/badge/Language-C%23-blue.svg)](https://learn.microsoft.com/en-us/dotnet/csharp/)
@@ -9,7 +9,7 @@
 ⚠️ **This project is superceded by [SoundLoader-Android](https://github.com/mvxGREEN/SoundLoader-Android)** ⚠️
 
 
-URL-to-MP3 Soundcloud music downloader app for Android built with .NET MAUI framework.  Supports links to songs, albums and playlists.
+URL-to-MP3 Soundcloud music downloader app for Android built with .NET MAUI framework.  Supports links to songs, albums and playlists on Soundcloud.
 
 ## ✨ Features
 * **Direct Downloads**: Easily download your favorite SoundCloud tracks directly to your Android device's local storage.
@@ -34,7 +34,7 @@ To get a local copy up and running, follow these simple steps.
 ### Installation & Build
 
 1. **Clone the repository**
-    `git clone https://github.com/mvxGREEN/SoundLoader-Android-Maui.git`
+    `git clone https://github.com/mvxGREEN/SoundLoader-MAUI.git`
 
 2. **Open the project in Visual Studio**
    * Launch Visual Studio 2022.
@@ -56,7 +56,7 @@ To get a local copy up and running, follow these simple steps.
 
 ## 🤝 Contributing
 Contributions, issues, and feature requests are welcome! 
-Feel free to check the [issues page](https://github.com/mvxGREEN/SoundLoader-Android-Maui/issues) if you want to contribute. 
+Feel free to check the [issues page](https://github.com/mvxGREEN/SoundLoader-MAUI/issues) if you want to contribute. 
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
