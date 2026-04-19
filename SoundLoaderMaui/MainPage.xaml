@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             xmlns:pr="clr-namespace:MPowerKit.ProgressRing;assembly=MPowerKit.ProgressRing"
+             x:Class="SoundLoaderMaui.MainPage">
+
+    <!-- TOOLBAR -->
+    <ContentPage.ToolbarItems>
+        <!-- ABOUT -->
+        <ToolbarItem x:Name="about_item"
+             Order="Secondary"
+             Text="About"
+             Clicked="OnAboutClicked" />
+        <!-- HELP -->
+        <ToolbarItem x:Name="help_item"
+             Order="Secondary"
+             Text="Help"
+             Clicked="OnHelpClicked" />
+    </ContentPage.ToolbarItems>
+
+    <!-- PAGE CONTENT -->
+    <AbsoluteLayout>
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="PositionProportional,SizeProportional">
+            <VerticalStackLayout Padding="20,0,20,0" Spacing="20" x:Name="MainVerticalStack">
+                <!-- TEXTFIELD -->
+                <material:TextField x:Name="main_textfield"
+                            Title="Paste URL…"
+                            TitleColor="{AppThemeBinding Light={StaticResource DarkPointEight}, Dark={StaticResource PointEight}}"
+                            AllowClear="True"
+                            ClearButtonVisibility="WhileEditing"
+                            TextChanged="OnTextChanged"
+                            Completed="OnTextCompleted">
+                    <validation:RegexValidation Pattern="^$|https?:\/\/(?:on\.soundcloud\.com\/[\w\-\.]+|(?:www\.)?soundcloud\.com\/[\w\-\.]+\/(?:sets\/)?[\w\-\.]+)(?:\?.*)?$" Message="Please copy a valid soundcloud URL" />
+                    <!-- PASTE BUTTON -->
+                    <material:TextField.Attachments>
+                        <material:ButtonView>
+                            <ImageButton x:Name="paste_button"
+                                Clicked="OnPasteClicked"
+                                HeightRequest="30"
+                                WidthRequest="30">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FASolid" Color="{AppThemeBinding Dark={StaticResource PointEight}, Light={StaticResource DarkPointEight}}"  Glyph="{x:Static fa:Solid.BoltLightning}"/>
+                                </ImageButton.Source>
+                            </ImageButton>
+                        </material:ButtonView>
+                    </material:TextField.Attachments>
+                </material:TextField>
+
+                <!-- PREVIEW -->
+                <AbsoluteLayout x:Name="preview_layout">
+                    <!-- BORDER -->
+                    <Frame x:Name="preview_frame"
+                        BorderColor="{AppThemeBinding Dark={StaticResource PointEight}, Light={StaticResource DarkPointEight}}"
+                        BackgroundColor="{StaticResource PointOh}"
+                        CornerRadius="10"
+                        ZIndex="1"
+                        AbsoluteLayout.LayoutBounds="0,0,1,360"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                        <!-- THUMBNAIL -->
+                        <Image x:Name="preview_img"
+                            Source="{Binding MThumbnailUrl}"
+                            Aspect="AspectFill"
+                            ZIndex="1"
+                            Margin="-20"
+                            Opacity="0.0"/>
+                    </Frame>
+                    <!-- WEBVIEW -->
+                    <WebView x:Name="preview_webview"
+                        IsVisible="False" />
+                    <!-- PROGRESS -->
+                    <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.5,0.5,1,100"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                        <!-- RING -->
+                        <pr:ProgressRing x:Name="progress_ring"
+                             HeightRequest="100"
+                             Progress="0"
+                             IsIndeterminate="True"
+                             Smooth="True"
+                             WidthRequest="100"
+                             Margin="10"
+                             StrokeLineCap="Square"
+                             Color="{StaticResource SoundLoaderOrange}" 
+                             Thickness="4"
+                             AbsoluteLayout.LayoutBounds="0.5,0.5,100,25"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             Opacity="0.0"/>
+                        <!-- MESSAGE -->
+                        <Label x:Name="progress_label"
+                            WidthRequest="200"
+                            Text="{Binding MMessageProgress}"
+                            FontSize="Small"
+                            TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
+                            HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </AbsoluteLayout>
+
+                <!-- DOWNLOADER -->
+                <AbsoluteLayout>
+                    <!-- FRAME -->
+                    <Frame x:Name="downloader_frame"
+                        BorderColor="{AppThemeBinding Dark={StaticResource PointEight}, Light={StaticResource DarkPointEight}}"
+                        BackgroundColor="{StaticResource PointOh}"
+                        CornerRadius="10"
+                        ZIndex="1"
+                        Opacity="0"
+                        AbsoluteLayout.LayoutBounds="0,0,1,95"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                        <StackLayout Orientation="Horizontal"
+                             Spacing="10">
+                            <!-- DOWNLOAD BUTTON -->
+                            <material:ButtonView x:Name="dl_btn"
+                                WidthRequest="60"
+                                HeightRequest="60"
+                                Padding="5"
+                                Opacity="0.0">
+                                <ImageButton
+                                    Clicked="OnDownloadClicked">
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FASolid"
+                                            Glyph="{x:Static fa:Solid.CircleDown}"
+                                            Color="{AppThemeBinding Dark={StaticResource PointEightFive}, Light={StaticResource DarkPointEightFive}}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </material:ButtonView>
+                            <!-- RING -->
+                            <pr:ProgressRing x:Name="progress_ring_dlr"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 Margin="5"
+                                 IsIndeterminate="True"
+                                 Smooth="True"
+                                 StrokeLineCap="Square"
+                                 Color="{AppThemeBinding Dark={StaticResource PointEight}, Light={StaticResource DarkPointEight}}"
+                                 Thickness="2"
+                                 Opacity="0.0"
+                                 IsVisible="False"/>
+                            <!-- FINISH BUTTON -->
+                            <material:ButtonView x:Name="finish_btn"
+                                WidthRequest="60"
+                                HeightRequest="60"
+                                Padding="5"
+                                Opacity="0.0"
+                                IsVisible="False">
+                                <ImageButton>
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="FASolid"
+                                            Glyph="{x:Static fa:Solid.CircleCheck}"
+                                            Color="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </material:ButtonView>
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <!-- TITLE -->
+                                <Label x:Name="preview_title"
+                                    Text="{Binding MTitle}"
+                                    FontSize="Medium"
+                                    TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
+                                    WidthRequest="250"
+                                    VerticalTextAlignment="Center"
+                                    ZIndex="2" />
+                                <!-- ARTIST -->
+                                <Label x:Name="preview_artist"
+                                    Text="{Binding MArtist}"
+                                    FontSize="Medium"
+                                    TextColor="{AppThemeBinding Dark={StaticResource PointEightFive}, Light={StaticResource DarkPointEightFive}}"
+                                    WidthRequest="250"
+                                    VerticalTextAlignment="Center"
+                                    ZIndex="2" />
+                            </VerticalStackLayout>
+                        </StackLayout>
+                    </Frame>
+                </AbsoluteLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- POPUP-->
+        <AbsoluteLayout 
+            x:Name="fragment_layout"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="PositionProportional,SizeProportional"
+            ZIndex="3"
+            IsVisible="false">
+            <!-- SHADOW -->
+            <Image 
+                x:Name="shadow_image"
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="PositionProportional,SizeProportional"
+                BackgroundColor="{AppThemeBinding Dark={StaticResource PointSix}, Light={StaticResource DarkPointSix}}" />
+            <!-- BORDER -->
+            <Frame x:Name="fragment_frame"
+                 BorderColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
+                 BackgroundColor="{StaticResource White}"
+                 CornerRadius="8"
+                 ZIndex="1"
+                 Margin="10,60"
+                 AbsoluteLayout.LayoutBounds="0,0,1,460"
+                 AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">   
+                <Grid>
+                    <VerticalStackLayout>
+                        <!-- HEADER -->
+                        <Grid>
+                            <VerticalStackLayout HorizontalOptions="Start">
+                                <!-- TITLE -->
+                                <Label 
+                                     x:Name="fragment_title"
+                                     Text="{Binding MFragmentTitle}"
+                                     FontAttributes="Bold"
+                                     FontSize="Large"
+                                     TextColor="{StaticResource DarkPointEightFive}"
+                                     VerticalTextAlignment="Start"
+                                     ZIndex="2" />
+                                <!-- SUBTITLE -->
+                                <Label 
+                                     x:Name="fragment_subtitle"
+                                     Text="{Binding MFragmentSubtitle}"
+                                     FontAttributes="Italic"
+                                     FontSize="Large"
+                                     TextColor="{StaticResource DarkPointEight}"
+                                     VerticalTextAlignment="Start"
+                                     ZIndex="2" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                        <!-- BODY -->
+                        <Label 
+                             x:Name="fragment_body"
+                             Text="{Binding MFragmentBody}"
+                             FontSize="Body"
+                             TextColor="{StaticResource DarkPointEight}"
+                             Margin="20"
+                             VerticalTextAlignment="Start"
+                             HorizontalTextAlignment="Start"
+                             ZIndex="2"
+                             LineHeight="1.5"/>
+
+                    </VerticalStackLayout>
+
+                    <!-- BUTTONS -->
+                    <HorizontalStackLayout x:Name="fragment_btn_layout"
+                       VerticalOptions="End"
+                       HorizontalOptions="Center">
+                        <!-- DISMISS -->
+                        <material:ButtonView>
+                            <Button x:Name="dismiss_button"
+                                Clicked="OnCloseClicked"
+                                Text="{Binding MFragmentDismiss}"
+                                BackgroundColor="{StaticResource DarkPointFive}"
+                                FontSize="Small"
+                                TextColor="{StaticResource GmaGreenWhite}"
+                                HorizontalOptions="Center"/>
+                        </material:ButtonView>
+                        <!-- POSITIVE -->
+                        <material:ButtonView>
+                            <Button x:Name="positive_button"
+                                Text="{Binding MFragmentPositive}"
+                                BackgroundColor="{StaticResource GmaGreenDark}"
+                                FontSize="16"
+                                TextColor="{StaticResource GmaGreenWhite}"
+                                HorizontalOptions="Start"/>
+                        </material:ButtonView>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+</ContentPage>
